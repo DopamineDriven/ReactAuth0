@@ -140,6 +140,14 @@
 - JWT is compact
 - Header, Body, and Signature are each Base64 encoded
     - Then separated by dots
+    - https://en.wikipedia.org/wiki/Base64
+    - https://www.base64encode.net/
+    - Base64 Index table (values 0-63)
+    - values 0-25 -> uppercase A-Z
+    - values 26-51 -> lowercase a-z
+    - values 52-61 -> numbers 0-9
+    - value 62 -> +
+    - value 63 -> /
 
 #### Example JWT (Header.Body.Signature)
 - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
