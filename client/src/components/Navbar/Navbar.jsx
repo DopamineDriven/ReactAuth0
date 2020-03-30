@@ -34,25 +34,25 @@ const Navbar = () => {
                         <Link 
                             to="/" 
                             className={
-                                window.location.pathname === "/" || window.location.pathname === "/profile"
+                                window.location.pathname === "/" || window.location.pathname === "/home"
+                                ? "nav-link active"
+                                : "nav-link"
+                            }>
+                            Home
+                        </Link>
+                    </li>
+                    &nbsp;|&nbsp;
+                    <li className="nav-item">
+                        <Link
+                            to="/profile" 
+                            className={
+                                window.location.pathname === "/profile"
                                 ? "nav-link active"
                                 : "nav-link"
                             }>
                             Profile
                         </Link>
                     </li>
-                    {/* &nbsp;|&nbsp;
-                    <li className="nav-item">
-                        <Link
-                            to="/saved" 
-                            className={
-                                window.location.pathname === "/saved"
-                                ? "nav-link active"
-                                : "nav-link"
-                            }>
-                            Saved
-                        </Link>
-                    </li> */}
                 </ul>
            {/* </div> */}
     </nav>
