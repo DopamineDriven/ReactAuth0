@@ -5,7 +5,9 @@ class Callback extends Component {
         // Handle authentication if expected values are in url
         if (/access_token|id_token|error/.test(this.props.location.hash)) {
             this.props.auth.handleAuthentication();
-        } throw new Error ("invalid callback URL")
+        } else {
+            throw new Error ("invalid callback URL")
+        }
     }
     render() {
         return (

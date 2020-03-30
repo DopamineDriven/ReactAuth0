@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import Home from './pages/Home.jsx';
 import Profile from './pages/Profile.jsx';
 import Navbar from './components/Navbar/Navbar.jsx';
@@ -22,13 +22,18 @@ class App extends Component {
           <React.Fragment>
             <Route 
               exact path={"/" || "/home"}
-              exact render={props => <Home auth={this.auth} {...props} />} />
+              render={props => <Home auth={this.auth} {...props} />} />
             <Route 
               exact path="/callback" 
               render={props => <Callback auth={this.auth} {...props} />} />
             <Route 
               exact path="/profile" 
-              component={Profile} />
+              render={props => 
+                this.auth.isAuthenticated() ? (
+                  <Profile auth={this.auth} {...props} />
+                ) : (
+                  <Redirect to="/" />
+                )} />
           </React.Fragment>
         </Wrapper>
         <Footer />
