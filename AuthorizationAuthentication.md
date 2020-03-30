@@ -14,4 +14,12 @@
 ## Why Use an Auth Provider?
 - Security is hard, choose a provider specializing in security
 - Customizable
-- Free for many apps 
+    - Integrated with application
+- Free for many apps
+
+## Auth0
+- Free tier supports up to 7,000 active users & unlimited logins 
+- Security provider used throghout course
+
+## OAuth 2.0
+- Security protocol used throughout this course
