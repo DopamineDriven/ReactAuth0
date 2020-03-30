@@ -153,3 +153,24 @@
 - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
 - eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.
 - SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+
+### Two Concerns
+- OICD uses an identity token
+    - Focuses on claims
+    - Each piece of data within = a claim
+    - Contains a variety of user data 
+    - Can store custom claims as well
+- OAuth2.0 uses an access token
+    - Focuses on scopes
+    - Scopes are permissions 
+    - Only user data in this token is the subclaim
+    - Example: "scope": "openid profile read:products"
+        - Permission to read users basic profile
+        - Read product data from what one could assume is a product api
+
+### JWTs cannot be revoked
+- Unlike cookies, JWTs cannot be revoked
+- Therefore, make their lifespan short
+- Why can't they be revoked?
+    - Because trusted by client without callback to server
+- Auth0 defaults to approx 10 hours for JWT lifespan
