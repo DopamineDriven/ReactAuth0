@@ -193,3 +193,5 @@
     - Contain claims (user info)
 - (2) Use access tokens to access APIs (JWTs or plain strings)
     - Contain scopes (user permissions)
+
+- Note: can delete node_modules from terminal via rm -rf node_modules/
