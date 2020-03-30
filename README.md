@@ -24,8 +24,6 @@
 ## OAuth 2.0
 - Security protocol used throughout this course
 
-### Authentication
-
 ### Authorization
 - What OAuth 2.0 is all about 
 - Scopes
@@ -150,9 +148,14 @@
     - value 63 -> /
 
 #### Example JWT (Header.Body.Signature)
-- eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
-- eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.
-- SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+- Encoded (ASCII--American Standard Code for Information Interchange) 
+    - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+    - eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.
+    - SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+- Decoded
+    - {"alg":"HS256","typ":"JWT"}
+    - {"sub":"1234567890","name":"John Doe","iat":1516239022}
+    - IùJÇIHÇ(]Oð¤Ç~:N²%VBË0å
 
 ### Two Concerns
 - OICD uses an identity token
@@ -174,3 +177,19 @@
 - Why can't they be revoked?
     - Because trusted by client without callback to server
 - Auth0 defaults to approx 10 hours for JWT lifespan
+
+### Summary
+- (1) Login handled by OIDC (Authentication)
+    - Receive token -> JWT
+    - Cryptographically secure; app trusts content 
+    - lifespan of approx 10 hrs
+- (2) Receive access token -- OAuth 2.0 (Authorization)
+    - When authorizing app to use data, access token received
+    - Access Token may be a JWT or just a plain string 
+- (3) Include Access Token in API calls for Authorization
+
+#### Two types of tokens
+- (1) Use identity tokens for Authentication (JWTs)
+    - Contain claims (user info)
+- (2) Use access tokens to access APIs (JWTs or plain strings)
+    - Contain scopes (user permissions)
