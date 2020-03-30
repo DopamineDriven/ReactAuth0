@@ -69,3 +69,43 @@
 - Different grants for different applications = unique flows 
 - Implicit Grant Flow
     - Most likely best fit for SPRAs (singe page react apps)
+    - https://auth0.com/docs/api-auth/which-oauth-flow-to-use
+
+
+### Implicit Grant Flow
+- (1) App directs browser to Auth0 sign-in
+    - User authentication
+- (2) Auth0 redirects app, at callback url of choice
+    - Auth0 redirects browser back to specified redirect URI along with access and ID tokens as hash fragments in the URI
+- (3) App reads the tokens from the url
+    - App extracts tokens from URI 
+    - Stores relevant Authentication data in local-storage 
+
+### OAuth 2.0 handles Authorization
+- Keeps track of what you're allowed to do by issuing access tokens that contain scopes
+
+### OpenID Connect (OIDC) used to handle Authentication
+- Technology that "sits on top" of OAuth
+- Like a standard sandwich with OAuth in the middle
+    - Authentication (OIDC) - top
+    - Authorization (OAuth 2.0) - middle
+    - HTTP (interface) - bottom 
+- Avoid managing passwords ourselves
+- Establish clear standard for handling authentication (OIDC)
+- Adds Three Key Items
+    - (1) An ID token (typically a JWT)
+    - (2) An endpoint for requesting user information
+    - (3) A standardized set of scopes (permissions)
+- In summary, OIDC standard approach that integrates with OAuth
+- https://openid.net/developers/certified/
+    - list of OIDC implementations
+
+
+### OIDC Jargon
+- Identity Provider
+    - The entity that holds the users information 
+    - Google, Microsoft, Facebook, Twitter (IP)
+- Relying Party (your app)
+    - Relies on the IPs to authenticate users
+    - Renders need for unique username/password for app obsolete
+    - Can trust these robust IPs
