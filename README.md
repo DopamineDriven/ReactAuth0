@@ -194,4 +194,53 @@
 - (2) Use access tokens to access APIs (JWTs or plain strings)
     - Contain scopes (user permissions)
 
+----------------------------------------------------------
 - Note: can delete node_modules from terminal via rm -rf node_modules/
+----------------------------------------------------------
+
+
+## Setting Up Auth0
+- Login via User/PW, Github, Microsoft, or Google
+- Create Tenant Domain
+    - A tenant is a logical isolation unit
+    - Conceptualize tenant as a development environment
+    - Will have a separate Tenant for prod, dev, and QA
+    - Allows changes to one environment without affecting others
+
+## Login and Signup Options
+- Custom UI
+- Universal and Embedded Lock options
+    - Both use lock widget
+
+### Lock Widget provided by Auth0
+- Universal and Embedded lock options
+- Benefits
+    - Easily integrates with Auth0
+    - Adapts to config settings
+    - UI is great on any device
+    - Remembers last used connection
+    - Automatic internalization
+    - Detailed password policy check for signups
+        - Honors settings specified in dashboard
+    - Customizable
+        - Color schemes
+        - Behaviors to match needs
+
+### Universal Lock
+- Hosted by Auth0
+- Most secure
+- Avoids cross-domain issues
+- Single, centralized login for SSO (single sign-on)
+- Less maintenance work  
+
+### Embedded Lock
+- Embedded within app
+- Places login form inside React app
+- Inherently less secure 
+    - Requires cross-domain calls between Auth0 and app
+    - Recommended to set up custom domain for this option
+        - Optimal security purposes
+
+### Custom UI
+- Requires one to build UI and call Auth0 APIs
+- Auth0 provides an SDK (software development kit) and wide variety of APIs
