@@ -1,6 +1,6 @@
 # Key Standards
-- OAuth 2.0
-- OpenID Connect
+- OAuth 2.0 (OA2.0)
+- OpenID Connect (OIDC)
 - JSON Web Tokens (JWT)
 
 ## Authentication
@@ -102,10 +102,46 @@
 
 
 ### OIDC Jargon
-- Identity Provider
+- Identity Provider (IP)
     - The entity that holds the users information 
     - Google, Microsoft, Facebook, Twitter (IP)
-- Relying Party (your app)
+- Relying Party (RP; your app)
     - Relies on the IPs to authenticate users
     - Renders need for unique username/password for app obsolete
     - Can trust these robust IPs
+
+### JSON Web Tokens (JWTs)
+- Access Token Standard
+- Used for authorization and secure info exchange
+    - Often contains user info
+- Pronounced "JOT"
+- Digitally signed
+    - Content uncompromised
+- Can be encrypted
+
+### Why JWT over SAML (Security Assertion Markup Language)?
+- JSON less verbose than XML
+- Smaller when encoded
+- Easier to sign than SAML
+- JSON is easy to parse on the client 
+
+### Anatomy of a JWT - Three Parts
+- Header
+    - Specifies type of token and hash algorithm used to create token's content
+- Body
+    - Contains the user identity claims
+    - Information that JWT claiming to be true about user
+    - Commonly includes name and timestamp reflecting JWT issue time 
+- Signature 
+    - Verifies sender 
+    - Ensures content is uncompromised (hasn't been tampered with)
+
+### Base64 Encoded
+- JWT is compact
+- Header, Body, and Signature are each Base64 encoded
+    - Then separated by dots
+
+#### Example JWT (Header.Body.Signature)
+- eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+- eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.
+- SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
