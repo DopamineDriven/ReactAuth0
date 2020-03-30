@@ -6,6 +6,9 @@ import Navbar from './components/Navbar/Navbar.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import Wrapper from './components/Wrapper/Wrapper.jsx';
 import Auth from './Auth/Auth.js';
+// import createBrowserHistory from './history/history.js';
+import Callback from './pages/Callback.jsx';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +22,10 @@ class App extends Component {
           <React.Fragment>
             <Route 
               exact path={"/" || "/home"}
-              render={props => <Home auth={this.auth} {...props} />} />
+              exact render={props => <Home auth={this.auth} {...props} />} />
+            <Route 
+              exact path="/callback" 
+              render={props => <Callback auth={this.auth} {...props} />} />
             <Route 
               exact path="/profile" 
               component={Profile} />

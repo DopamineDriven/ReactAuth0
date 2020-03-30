@@ -1,5 +1,5 @@
-require('dotenv').config();
 import auth0 from 'auth0-js';
+require('dotenv').config();
 // https://auth0.github.io/auth0.js/index.html
 
 export default class Auth {
