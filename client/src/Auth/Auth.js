@@ -17,4 +17,13 @@ export default class Auth {
             scope: "openid profile email"
         });
     }
+
+    // METHODS
+    // don't have to worry about this keyword binding (no manual data-binding required)
+    // when authorize called it redirects browser to Auth0 login page
+    login = () => {
+        this.auth0.authorize()
+    };
+
+
 }
