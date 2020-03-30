@@ -10,7 +10,10 @@ export default class Auth {
             clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
             // uniform resource identifier
             redirectUri: process.env.REACT_APP_AUTH0_CALLBACK_URL,
+            // id authenticates user and token is access token for api calls
             responseType: "token id_token",
+            // will return: iss (issuer), sub (subject), aud (audience),
+            // exp (expiration time), nbf (not before), iat (issued at)
             scope: "openid profile email"
         });
     }
