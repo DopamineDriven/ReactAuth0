@@ -34,14 +34,14 @@ const Navbar = () => {
                         <Link 
                             to="/" 
                             className={
-                                window.location.pathname === "/" || window.location.pathname === "/search"
+                                window.location.pathname === "/" || window.location.pathname === "/profile"
                                 ? "nav-link active"
                                 : "nav-link"
                             }>
-                            Search
+                            Profile
                         </Link>
                     </li>
-                    &nbsp;|&nbsp;
+                    {/* &nbsp;|&nbsp;
                     <li className="nav-item">
                         <Link
                             to="/saved" 
@@ -52,7 +52,7 @@ const Navbar = () => {
                             }>
                             Saved
                         </Link>
-                    </li>
+                    </li> */}
                 </ul>
            {/* </div> */}
     </nav>
