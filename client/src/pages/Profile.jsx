@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 
 class Profile extends Component {
+    // store user profile data in state
+    // class-field syntax
     state = {
         profile: null,
         error: ""
     }
-
+    // this.loadUserProfile() declared separately to clearly convey intent
     componentDidMount() {
         this.loadUserProfile()
     };
@@ -17,7 +19,9 @@ class Profile extends Component {
     };
 
     render() {
+        // destructuring profile via this.state
         const { profile } = this.state;
+        // if !profile set, return null
         if (!profile) return null;
         return (
             <>
@@ -29,7 +33,9 @@ class Profile extends Component {
                     src={profile.picture} 
                     alt="profile pic"
                 />
-                <pre className={"text-white"}>{JSON.stringify(profile, null, 2)}</pre>
+                <pre className={"text-white"}>
+                    {JSON.stringify(profile, null, 2)}
+                </pre>
             </div>
             </>
         )

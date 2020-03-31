@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 class Navbar extends React.Component {
     render() {
+        // destructuring statement
         const { isAuthenticated, login, logout } = this.props.auth;
     // use state expanded and setExpanded onClick
     // circle back
