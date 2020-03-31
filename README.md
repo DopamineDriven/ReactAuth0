@@ -244,3 +244,12 @@
 ### Custom UI
 - Requires one to build UI and call Auth0 APIs
 - Auth0 provides an SDK (software development kit) and wide variety of APIs
+
+## Storing Tokens
+- Cookies are vulnerable to cross-site request forgery attacks
+    - Malicious website, email, or blog causes users web browser to perform unwanted action on a trusted site where user is currently logged in 
+    - Much smaller limit on storage (4k/domain)
+    - Sent on all requests (wastes bandwidth)
+- If React app has dedicated server then storing tokens in an HttpOnly Cookie w/ secure flag enabled is recommended
+    - protects from cross-site scripting
+    - such cookies cannot be accessed by JavaScript
