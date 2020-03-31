@@ -253,3 +253,18 @@
 - If React app has dedicated server then storing tokens in an HttpOnly Cookie w/ secure flag enabled is recommended
     - protects from cross-site scripting
     - such cookies cannot be accessed by JavaScript
+    - Hence, why they're generated on a serber
+
+### Cross-site Scripting (XSS)
+- Attacker injects client-side script
+    - risk comes from mishandling user content
+    - for example, not HTML encoding
+- React protects against XSS
+    - Automatically escapes vars 
+    - Behaviors to avoid:
+        - using dangerouslySetInnerHTML (unescaping)
+        - pass user-supplied vals to props (hrefs on anchors)
+- Not recommended to store tokens in local storage
+    - vulnerable to XSSAs
+- Handle tokens on backend ideally
+    - Superior XSS protection 
