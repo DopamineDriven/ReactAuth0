@@ -26,9 +26,16 @@ export default class Auth {
     };
 
     handleAuthentication = () => {
+        // parseHash built into Auth0js lib
+        // parses the hash from the URL
+        // get both an error obj and result
+        // auth result should have access and id tokens
         this.auth0.parseHash((error, authResult) => {
             if (authResult && authResult.accessToken && authResult.idToken) {
+                // pass setSession authResult data
+                console.log("parseHash", authResult)
                 this.setSession(authResult)
+                // programmatically tell react to redirect url to "/"
                 this.history.push("/")
             } else if (error) {
                 this.history.push("/")
@@ -37,16 +44,27 @@ export default class Auth {
             }
         })
     }
-
+    // receives an authResult
     setSession = authResult => {
-        console.log(authResult)
+        console.log("setSess", authResult)
         // set time for access token lifespan (36000 seconds, tick tock)
         const expiresAt = JSON.stringify(
+            // Date().getTime() returns the current UTC time in UNIX Epoch format
             authResult.expiresIn*1000+new Date().getTime()
         )
+        // goal: calculate UNIX Epoch time that JWT expires
+        // UNIX Epoch time is number of milliseconds since Jan 1, 1970
+        // 3 steps to calculate UNIX Epoch time of JWT expiration
+            // (1) authResult.expiresIn contains expiration in seconds
+            // (2) _E^3 seconds -> ms
+            // (3) add current Unix Epoch time 
+                // above in setSessions
 
-    localStorage.setItem("access_token", authResult.accessToken);
+    // save access token
+    localStorage.setItem("access_token", authResult.accessToken);   
+    // save id token
     localStorage.setItem("id_token", authResult.idToken);
+    // save expiration value to expiresAt result
     localStorage.setItem("expires_at", expiresAt);
     };
 

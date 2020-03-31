@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 
 class Home extends Component {
     render() {
+        // destructure 
         const { isAuthenticated, login } = this.props.auth
         return (
-            <row className="text-white">
+            <div className="text-white">
                 <div className="d-flex justify-content-center">
                 {isAuthenticated() ? (
                     <Link to="/profile">View Profile</Link>
@@ -19,7 +20,7 @@ class Home extends Component {
                 </button>
                 )}
                 </div>
-            </row>
+            </div>
         )
     }
 }
