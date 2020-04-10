@@ -272,3 +272,5 @@
 - For SPAS
     - Store tokens in memory
         - Use silent auth to avoid user having to login again if they leave page locally
+
+- http://browsercookielimits.squawky.net/
