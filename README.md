@@ -312,3 +312,49 @@
         - simplistic example
 - users can change user_metadata
 - users cannot change app_metadata
+
+### Session Cookie
+- Contains unique random id via the server
+    - server determines authorization via session (stored in server)
+    - each time user calls API server uses id to determine who user is
+    - then queries db to determine authorization rights for user
+    - simple
+    - secure when using http only cookies over https 
+- Handle authentication but not authorization
+    - merely an identifier
+    - no authorization data included
+    - similar to an ID one carries
+    - server determines authorization
+    - impacts performance since db must be queried to determine user rights on each call
+- downside can be mitigated by storying user sessions in an in-memory cache to avoid database call overhead
+    - which is to say, to avoid cs to ss calls on each query
+
+
+### JWT Scopes
+- create own custom scopes 
+    - assign different scopes to different users stored in a jwt
+    - caution
+        - scopes were designed to specify what an app is allowed to do with a third party on a user's behalf
+    - However, Auth0 does support this
+        - can design different scopes (permissions) to different users upon login using Auth0 rules 
+        - jwts = cryptographically secure; hence, can trust scopes in jwt token 
+        - improves performance --> avoid db call 
+    - TRADEOFF
+        - using scopes for granular permissions quickly leads to bloated jwts containing dozens of scopes
+        - simple app? good method
+        - complex app? not such a good method
+    - example:
+        - a user may have a delete products scope, BUT they may only have the right to delete a product that they created
+        - do not scale well for complex authorization scenarios
+
+### JWT with Roles*(best one-size-fits-all)
+- Roles group users by permissions
+    - grant different permissions to each role 
+    - include role info within access tokens
+    - simple and scalable
+    - what I used in my project 8) (Consilience repo)
+
+#### Bottom Line
+- use scopes for original purpose
+    - delegating permissions for app to interact with 3rd party data
+- use roles for handling your own apps permissions
