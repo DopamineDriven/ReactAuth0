@@ -408,3 +408,29 @@
     - if true, receive new tokens via an iframe
     - tokens propagated to app from iframe using post message API
     - Process part of OAuth2.0 spec
+
+### Add tokenRenewalComplete in app.jsx
+- Add tokenRenewalComplete to state in app.jsx
+    - use componentDidMount to setState to true when tokenRenewalComplete is true
+    - This monitors the process of Auth0 checking and renewing tokens via iframe
+
+### Performance tweak
+- Could write a val to localStorage when user logs in
+    - Clear the val from localStorage on logout
+    - In this way, avoid needlessly making iframe call
+- Silent Token renewal
+    - App requests new tokens automatically when current tokens expire
+
+### Caveats
+- (1) Approach relies on third party cookies via setting an iframe 
+    - if third party cookies disabled in browser, this method will not work
+    - Safari blocks third party cookies by default, for example
+    - How to resolve?
+        - Set up a custom Auth0 Domain
+- (2) Approach fails if using google login
+    - Login is successful 
+    - However, upon refresh user is no longer logged in
+    - Why?
+        - Silent Auth doesn't work with identity providers by default
+        - Must configure keys with each provider
+
