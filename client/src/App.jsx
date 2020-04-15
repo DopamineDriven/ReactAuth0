@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Route, Redirect } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import Home from './pages/Home.jsx';
 import Profile from './pages/Profile.jsx';
 import Navbar from './components/Navbar/Navbar.jsx';
@@ -8,7 +8,6 @@ import Wrapper from './components/Wrapper/Wrapper.jsx';
 import Auth from './Auth/Auth.js';
 import Callback from './pages/Callback.jsx';
 // route history globally
-import history from './history/history.jsx';
 import Public from './pages/Public.jsx';
 import Private from './pages/Private.jsx';
 import Courses from './pages/Courses.jsx';
@@ -22,10 +21,9 @@ class App extends Component {
 
   render() {
     return (
-      <Router history={history} keyLength={12}>
+      <React.Fragment>
         <Navbar auth={this.auth} />
         <Wrapper>
-          <React.Fragment>
             <Route 
               exact path={"/" || "/home"}
               render={props => <Home auth={this.auth} {...props} />} 
@@ -69,10 +67,9 @@ class App extends Component {
                   this.auth.login()
                 )} 
             />
-          </React.Fragment>
-        </Wrapper>
+            </Wrapper>
         <Footer />
-      </Router>
+        </React.Fragment>
     );
   }
 };

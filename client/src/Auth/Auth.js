@@ -28,9 +28,9 @@ export default class Auth {
     // when authorize called it redirects browser to Auth0 login page
     login = () => {
       localStorage.setItem(
-        "redirect_on_login", 
+        REDIRECT_ON_LOGIN, 
         JSON.stringify(this.history.location)
-      )
+      );
       this.auth0.authorize()
     };
 
@@ -39,7 +39,6 @@ export default class Auth {
         // parses the hash from the URL
         // auth result should have access and id tokens
         this.auth0.parseHash((error, authResult) => {
-          debugger;
             if (authResult && authResult.accessToken && authResult.idToken) {
                 // pass setSession authResult data
                 console.log("parseHash", authResult)
@@ -48,7 +47,7 @@ export default class Auth {
                 const redirectLocation = 
                   localStorage.getItem(REDIRECT_ON_LOGIN) === "undefined"
                     ? "/" 
-                    : JSON.parse(localStorage.getItem)
+                    : JSON.parse(localStorage.getItem(REDIRECT_ON_LOGIN))
                 this.history.push(redirectLocation)
             } else if (error) {
                 this.history.push("/")
