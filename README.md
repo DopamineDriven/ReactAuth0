@@ -358,3 +358,13 @@
 - use scopes for original purpose
     - delegating permissions for app to interact with 3rd party data
 - use roles for handling your own apps permissions
+
+
+## Steps to configure context:
+- (1) Declare context
+- (2) Declare provider (provides data/functions)
+- (3) Declare consumer (consumes data/functions)
+
+### Declaring Provider
+- Typically provider declared near entry point of app (App.jsx)
+    - This way, all child components can consume data and functions provided
