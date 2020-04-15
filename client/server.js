@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const jwt = require('express-jwt');
 const jwksRsa = require('jwks-rsa');
-const PORT = process.env.PORT || 3001;
+// const PORT = process.env.PORT || process.env.REACT_APP_PORT;
 
 // instantiate express
 const app = express();
@@ -23,7 +23,7 @@ app.get('/private', (req, res) => {
     .catch(error)
 })
 
-app.listen(PORT, error => {
+app.listen(process.env.REACT_APP_PORT, error => {
     if (error) throw error
-    console.log(`🌎 ==> API Server now listening on PORT http://localhost:${PORT}`)
+    console.log(`🌎 ==> API Server now listening on ${process.env.REACT_APP_AUTH0_AUDIENCE}`)
 });
