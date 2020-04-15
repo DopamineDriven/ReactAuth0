@@ -11,6 +11,7 @@ import Callback from './pages/Callback.jsx';
 import history from './history/history.jsx';
 import Public from './pages/Public.jsx';
 import Private from './pages/Private.jsx';
+import Courses from './pages/Courses.jsx';
 
 class App extends Component {
   
@@ -27,29 +28,47 @@ class App extends Component {
           <React.Fragment>
             <Route 
               exact path={"/" || "/home"}
-              render={props => <Home auth={this.auth} {...props} />} />
+              render={props => <Home auth={this.auth} {...props} />} 
+            />
             <Route 
               exact path="/callback" 
-              render={props => <Callback auth={this.auth} {...props} />} />
+              render={props => <Callback auth={this.auth} {...props} />} 
+            />
             <Route 
               exact path="/public" 
-              render={props => <Public auth={this.auth} {...props} />} />
+              render={props => <Public auth={this.auth} {...props} />} 
+            />
             <Route 
               exact path="/profile" 
               render={props => 
+                // user must be logged in
                 this.auth.isAuthenticated() ? (
                   <Profile auth={this.auth} {...props} />
                 ) : (
                   <Redirect to="/" />
-                )} />
+                )} 
+            />
             <Route 
               exact path="/private" 
               render={props => 
+                // user must be logged in
                 this.auth.isAuthenticated() ? (
                   <Private auth={this.auth} {...props} />
                 ) : (
                   this.auth.login()
-                )} />
+                )} 
+            />
+            <Route 
+              exact path="/courses" 
+              render={props => 
+                // user must be logged in and granted specified scope
+                this.auth.isAuthenticated() &&
+                this.auth.userHasScopes(["read:courses"]) ? (
+                  <Courses auth={this.auth} {...props} />
+                ) : (
+                  this.auth.login()
+                )} 
+            />
           </React.Fragment>
         </Wrapper>
         <Footer />
