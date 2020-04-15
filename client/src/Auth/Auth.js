@@ -4,6 +4,7 @@ require('dotenv').config();
 const REDIRECT_ON_LOGIN = "redirect_on_login"
 
 // private vars stored outside class
+// eslint-disable-next-line
 let _idToken = null;
 let _accessToken = null;
 let _scopes = null;
@@ -93,7 +94,7 @@ let _expiresAt = null;
 
 
     getAccessToken = () => {
-      if (!accessToken) {
+      if (!_accessToken) {
         throw new Error("No access token found.");
       }
       return _accessToken;
@@ -119,5 +120,19 @@ let _expiresAt = null;
       return scopes.every(scope => grantedScopes.includes(scope))
     }
 
-    
+    // auth0 provides checkSession function
+    // function also accepts optional callback after response has been received 
+    // (similar to dependency array?)
+    renewToken(cb) {
+      this.auth0.checkSession({}, (err, result) => {
+        if (err) {
+          console.log(`Error: ${err.error} - ${err.error_description}.`)
+        } else {
+          this.setSession(result)
+        }
+        if (cb) cb(err, result)
+      })
+    }
+
+
   }

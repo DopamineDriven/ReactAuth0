@@ -394,3 +394,17 @@
     - Prefixing private variables with an underscore conveys intent
     - Stored outside of class since they're private
 - Commence refactor by querying global search for localStorage
+
+### Memory conundrum
+- User session is lost if they open a new browser tab or close existing tab
+- Auth0's jwts expire by default after 36,000 seconds (10 hours)
+    - app should honor that by keeping user logged in even when opening a new tab or when closing a tab
+- Resolved via Silent Authentication
+
+## Silent Authentication
+
+### Silent Authentication Request
+- make an http call to Auth0 to check if active session exists
+    - if true, receive new tokens via an iframe
+    - tokens propagated to app from iframe using post message API
+    - Process part of OAuth2.0 spec
