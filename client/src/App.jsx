@@ -6,7 +6,6 @@ import Navbar from './components/Navbar/Navbar.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import Wrapper from './components/Wrapper/Wrapper.jsx';
 import Auth from './Auth/Auth.js';
-// import createBrowserHistory from './history/history.js';
 import Callback from './pages/Callback.jsx';
 // route history globally
 import history from './history/history.jsx';
