@@ -298,3 +298,17 @@
 - Scopes
     - Delegate permission
     - Specificy actions an app can perform on behalf of user
+
+### Customizing pipeline authentication behavior with Auth0
+- Rules
+    - written in JS 
+    - run as part of auth process
+    - https://auth0.com/docs/rules/current
+    - verification email stores users role in app_metadata which the user cannot change
+    -  for setting roles to a user
+        - addRolesToUser function checks if a users email ends in a certain domain
+        - if so, they add admin role to user
+        - else, admin is not assigned; they are a plain user
+        - simplistic example
+- users can change user_metadata
+- users cannot change app_metadata
