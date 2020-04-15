@@ -56,6 +56,7 @@ class Navbar extends React.Component {
                                 </Link>
                             </li>
                             &nbsp;|&nbsp;
+                            {isAuthenticated() &&(
                             <li className="nav-item">
                                 <Link
                                     to="/public" 
@@ -67,6 +68,7 @@ class Navbar extends React.Component {
                                     Public
                                 </Link>
                             </li>
+                            )}
                             &nbsp;|&nbsp;
                             <li className="nav-item">
                                 <button 
