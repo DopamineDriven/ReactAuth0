@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 
 class Navbar extends React.Component {
     render() {
-        // destructuring statement
-        const { isAuthenticated, login, logout } = this.props.auth;
+        // destructuring statement for middleware!
+        const { isAuthenticated, login, logout, userHasScopes } = this.props.auth;
     // use state expanded and setExpanded onClick
     // circle back
         return (
@@ -78,6 +78,21 @@ class Navbar extends React.Component {
                                         : "nav-link"
                                     }>
                                     Private
+                                </Link>
+                            </li>
+                            )}
+                            &nbsp;|&nbsp;
+                            {isAuthenticated() && 
+                            userHasScopes(["read:courses"]) && (
+                            <li className="nav-item">
+                                <Link
+                                    to="/courses" 
+                                    className={
+                                        window.location.pathname === "/courses"
+                                        ? "nav-link active"
+                                        : "nav-link"
+                                    }>
+                                    Courses
                                 </Link>
                             </li>
                             )}
