@@ -79,7 +79,8 @@ let _expiresAt = null;
     _scopes = authResult.scope || this.requestedScopes || "";
     _accessToken = authResult.accessToken
     _idToken = authResult.idToken
-    }
+    this.scheduleTokenRenewel()
+    };
 
     isAuthenticated() {
       return new Date().getTime() < _expiresAt;
@@ -134,5 +135,10 @@ let _expiresAt = null;
       })
     }
 
-
+    // calls renewToken upon token expiration 
+    // call after user is authenticated (call it at bottom of setSession)
+    scheduleTokenRenewel = () => {
+      const delay = _expiresAt - Date.now();
+      if (delay > 0) setTimeout(() => this.renewToken(), delay)
+    }
   }
