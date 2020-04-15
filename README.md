@@ -274,3 +274,7 @@
         - Use silent auth to avoid user having to login again if they leave page locally
 
 - http://browsercookielimits.squawky.net/
+
+#### Note about package.json
+- run-p means run in parallel
+- so, "run-p start:client start:server" means to run the client and server in parallel
