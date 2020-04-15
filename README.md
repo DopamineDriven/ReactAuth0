@@ -434,3 +434,82 @@
         - Silent Auth doesn't work with identity providers by default
         - Must configure keys with each provider
 
+## Review Auth0 custom settings
+
+### SSO Integrations
+- Can integrate with popular single sign on services
+    - slack, Active Directory, Dropbox, salesforce, New Relic, etc
+
+### Connections
+- Specify handling of usernames and password policies
+    - Require username
+    - specify username validation rules (min length, etc)
+    - disable signups to handle them behind the scenes
+- Password policy (read validation)
+    - specify password strength rules
+    - forbid using previous password
+    - disallow certain passwords
+    - disallow passwords containing personal data
+- Custom Database
+    - Configure database action scripts here 
+- Social
+    - Enable over a dozen single identity providers
+        - GitHub, facebook, google. Bitbucket, Linkedin
+- Enterprise
+    - Users can sign in to app using enterprise credentials
+        - Active Directory, PingFederate, etc
+        - Achieved by integrating Auth0 with enterprise connection
+- Passwordless
+    - Configure passwordless connections
+        - SMS Login, Email Login, and others
+        - user sent one time code in text or email for each login
+        - email/text content fully customizable as is one time password and code length
+
+### Rules
+- Customize authentication pipeline with your own logic in JS
+
+### Hooks
+- Use node.js to customize behavior of Auth0
+    - executed in node at selected extension points 
+    - code that runs before or after user registration
+    - or code that runs during client credentials exchange
+
+### Multifactor Auth
+- Push notifications, sms, Guardian, Google Authenticator, Duo
+
+### Hosted Pages
+- Customize login, signup, and password reset pages 
+    - Can change the logo, primary color, app title, placeholder text, UI of IP login buttons
+    - Can add custom fields to signup form
+    - Embed login form within app
+- Similar customization options for PW reset page
+
+### Email Templates
+- Users sent emails for various events
+    - Verification, Welcome, Multifactor Auth, Change PW, etc
+- control content and subject of each email 
+    - select provider sending emails as well
+
+### Logs
+- detailed logs of actions performed in dashboard and authentication of users
+
+### Anomaly Detection
+- Brute-force protection
+    - Limits the amount of signups and failed logins from suspicious IP addresses
+    - Performs following actions
+        - Sends email notifications
+        - Blocks suspicious IP addresses
+- Breached-password Detection
+    - Detects login attempts w/ credentials that have been known to be breached
+        - Performs following actions
+            - send email to affected tenant
+            - block login attempts
+            - notify administrators 
+
+### Extensions
+- Custom social connections
+- Sending logs to Logstash or Azure
+- Gitlab, Github, or Bitbucket deployments
+- Powerful authorization extension that adds granular support for groups, roles, and permissions
+
+
