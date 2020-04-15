@@ -19,12 +19,23 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      auth: new Auth(this.props.history)
+      auth: new Auth(this.props.history),
+      // tracks if tokenRenewalReq has been completed
+      tokenRenewalComplete: false
     }
   }
+
+  componentDidMount() {
+    this.state.auth.renewToken(() => {
+      this.setState({ tokenRenewalComplete: true })
+    })
+  }
+
   render() {
     // destructure reference to this.state
     const { auth } = this.state;
+    // show loading message until token renewal check is complete
+    if (!this.state.tokenRenewalComplete) return "Loading..."
     return (
       // no longer have to pass auth down as props to private components
       // can instead use auth context consumer in PrivateRoute.jsx

@@ -120,10 +120,10 @@ let _expiresAt = null;
       return scopes.every(scope => grantedScopes.includes(scope))
     }
 
-    // auth0 provides checkSession function
+    // auth0 provides checkSession function via iframe
     // function also accepts optional callback after response has been received 
     // (similar to dependency array?)
-    renewToken(cb) {
+    renewToken = cb => {
       this.auth0.checkSession({}, (err, result) => {
         if (err) {
           console.log(`Error: ${err.error} - ${err.error_description}.`)
