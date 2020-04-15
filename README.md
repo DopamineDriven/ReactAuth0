@@ -384,3 +384,10 @@
 - (1) Eliminate redundancy
 - (2) Increased readability (more declarative)
 - (3) Enforced consistency 
+
+## Storing tokens in memory
+- When using implicit flow it is recommended to store tokens in memory
+- Why?
+    - Reduce attack vector for a XSS attack
+- Private variables declared in Auth.jsx
+    - Prefixing private variables with an underscore conveys intent
