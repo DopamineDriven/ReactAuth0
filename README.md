@@ -274,7 +274,27 @@
         - Use silent auth to avoid user having to login again if they leave page locally
 
 - http://browsercookielimits.squawky.net/
-
+---------------------------------------------------------------------
 #### Note about package.json
 - run-p means run in parallel
 - so, "run-p start:client start:server" means to run the client and server in parallel
+----------------------------------------------------------------------
+
+### OAuth2
+- Protocol that allows one to share info w/ another app
+    - w/out sharing username or password
+- Each permission granted = scope
+- OAuth in action
+    - LinkedIn network growth
+    - click on button to sync contacts
+    - presented with consent form to see, edit, download, delete google contacts
+    - these are scopes
+    - if allow is clicked, linkedin can access google data even though it does not have google password
+    - this is granting requested scopes
+    - google confirms access token provided has read contact scope, returns contacts to linkedin
+    - all of this happens via OAuth2 protocol
+
+### Fine-grained authorization using Scopes
+- Scopes
+    - Delegate permission
+    - Specificy actions an app can perform on behalf of user

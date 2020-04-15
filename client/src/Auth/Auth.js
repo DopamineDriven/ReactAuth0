@@ -17,7 +17,7 @@ export default class Auth {
             responseType: "token id_token",
             // will return: iss (issuer), sub (subject), aud (audience),
             // exp (expiration time), nbf (not before), iat (issued at)
-            scope: "openid profile email"
+            scope: "openid profile email read:courses"
         });
     }
 
