@@ -57,6 +57,18 @@ class Navbar extends React.Component {
                             </li>
                             &nbsp;|&nbsp;
                             <li className="nav-item">
+                                <Link
+                                    to="/public" 
+                                    className={
+                                        window.location.pathname === "/public"
+                                        ? "nav-link active"
+                                        : "nav-link"
+                                    }>
+                                    Public
+                                </Link>
+                            </li>
+                            &nbsp;|&nbsp;
+                            <li className="nav-item">
                                 <button 
                                     onClick={isAuthenticated() ? logout : login }
                                     className="btn-lg">
