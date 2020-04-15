@@ -367,6 +367,15 @@
 - (2) Declare provider (provides data/functions)
 - (3) Declare consumer (consumes data/functions)
 
-### Declaring Provider
+### Declaring Context Provider
 - Typically provider declared near entry point of app (App.jsx)
     - This way, all child components can consume data and functions provided
+
+### Context Consumer
+- Auth consumers expect us to declare a render prop and pass us whatever data was passed on value from provider
+    - wrap route component in render prop
+    - implicitly returns route component from render prop
+- Note
+    - Can use other context syntaxes
+        - (1) Convert to class and declary contextType
+        - (2) Use React Hook 

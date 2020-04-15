@@ -26,40 +26,41 @@ class App extends Component {
     // destructure reference to this.state
     const { auth } = this.state;
     return (
-      <React.Fragment>
-        <Navbar auth={this.auth} />
-          <Wrapper>
-            <Route 
-              exact path={"/" || "/home"}
-              render={props => <Home auth={auth} {...props} />} 
-            />
-            <Route 
-              exact path="/callback" 
-              render={props => <Callback auth={auth} {...props} />} 
-            />
-            <Route 
-              exact path="/public" 
-              render={props => <Public auth={auth} {...props} />} 
-            />
-            <PrivateRoute 
-              exact path="/profile" 
-              component={Profile} 
-              auth={auth}
-            />
-            <PrivateRoute 
-              exact path="/private" 
-              component={Private} 
-              auth={auth}
-            />
-            <PrivateRoute 
-              exact path="/courses" 
-              component={Courses}
-              auth={auth}
-              scopes={["read:courses"]}
-            />
-          </Wrapper>
-        <Footer />
-      </React.Fragment>
+      // no longer have to pass auth down as props to private components
+      // can instead use auth context consumer in PrivateRoute.jsx
+      <AuthContext.Provider value={auth}>
+        <React.Fragment>
+          <Navbar auth={auth} />
+            <Wrapper>
+              <Route 
+                exact path={"/" || "/home"}
+                render={props => <Home auth={auth} {...props} />} 
+              />
+              <Route 
+                exact path="/callback" 
+                render={props => <Callback auth={auth} {...props} />} 
+              />
+              <Route 
+                exact path="/public" 
+                component={Public}
+              />
+              <PrivateRoute 
+                exact path="/profile" 
+                component={Profile} 
+              />
+              <PrivateRoute 
+                exact path="/private" 
+                component={Private} 
+              />
+              <PrivateRoute 
+                exact path="/courses" 
+                component={Courses}
+                scopes={["read:courses"]}
+              />
+            </Wrapper>
+          <Footer />
+        </React.Fragment>
+      </AuthContext.Provider>
     );
   }
 };
