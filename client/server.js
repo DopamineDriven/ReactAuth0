@@ -48,7 +48,7 @@ app.get('/private', checkJwt, (req, res) => {
 // check scope additional middleware that checks jwt-auth to validate scopes
 // requiring that the user has the read:courses scope in access token
 // will return two courses if user has read:courses scope in valid jwt
-app.get('/courses', checkJwt, checkScope(["read:courses"]), (req, res) => {
+app.get('/course', checkJwt, checkScope(["read:courses"]), (req, res) => {
     res.json({
         courses: [
             { id: 1, title: "Building Apps with React and Redux" },
