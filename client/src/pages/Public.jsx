@@ -16,7 +16,7 @@ class Public extends Component {
 
     render() {
         return (
-            <p>
+            <p className="text-white">
                 {this.state.message}
             </p>
         );

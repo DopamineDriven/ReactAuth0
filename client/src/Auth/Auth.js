@@ -11,6 +11,8 @@ export default class Auth {
             clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
             // uniform resource identifier
             redirectUri: process.env.REACT_APP_AUTH0_CALLBACK_URL,
+            // auth0 will send access token tied to particular audience (specified in API seettings)
+            audience: process.env.REACT_APP_AUTH0_AUDIENCE,
             // id authenticates user and token is access token for api calls
             responseType: "token id_token",
             // will return: iss (issuer), sub (subject), aud (audience),
