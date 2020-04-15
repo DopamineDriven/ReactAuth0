@@ -379,3 +379,8 @@
     - Can use other context syntaxes
         - (1) Convert to class and declary contextType
         - (2) Use React Hook 
+
+### Result of using PrivateRoute component and Context
+- (1) Eliminate redundancy
+- (2) Increased readability (more declarative)
+- (3) Enforced consistency 
