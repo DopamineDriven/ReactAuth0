@@ -34,14 +34,14 @@ const app = express();
 // declare first endpoint (public)
 app.get('/public', (req, res) => {
     res.json({
-        message: "hello from a public API!"
+        message: "Hello from a public API!"
     })
 })
 
 // declare next endpoint (private)
 app.get('/private', checkJwt, (req, res) => {
     res.json({
-        message: "hello from a private API!"
+        message: "Hello from a private API!"
     })
 })
 
@@ -54,6 +54,23 @@ app.get('/course', checkJwt, checkScope(["read:courses"]), (req, res) => {
             { id: 1, title: "Building Apps with React and Redux" },
             { id: 2, title: "Creating Reusable React Components" }
         ]
+    })
+})
+// middleware checking user role
+function checkRole(role) {
+    return (req, res, next) => {
+        const assignedRoles = req.user['http://localhost:3000/roles'];
+        if (Array.isArray(assignedRoles) && assignedRoles.includes(role)) {
+            return next();
+        } else {
+            return res.status(401).send('insufficient role permissions')
+        }
+    }
+}
+
+app.get('/admin', checkJwt, checkRole('admin'), (req, res) => {
+    res.json({
+        message: "Hello from an admin API!"
     })
 })
 
