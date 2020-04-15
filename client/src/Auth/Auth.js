@@ -3,7 +3,13 @@ require('dotenv').config();
 // https://auth0.github.io/auth0.js/index.html
 const REDIRECT_ON_LOGIN = "redirect_on_login"
 
-export default class Auth {
+// private vars stored outside class
+let _idToken = null;
+let _accessToken = null;
+let _scopes = null;
+let _expiresAt = null;
+
+  export default class Auth {
     constructor(history) {
         this.history = history;
         this.userProfile = null;
@@ -62,82 +68,56 @@ export default class Auth {
     setSession = authResult => {
         console.log("setSess", authResult)
         // set time for access token lifespan (36000 seconds, tick tock)
-        const expiresAt = JSON.stringify(
             // Date().getTime() returns the current UTC time in UNIX Epoch format
-            authResult.expiresIn*1000+new Date().getTime()
-        )
-        // goal: calculate UNIX Epoch time that JWT expires
-        // UNIX Epoch time is number of milliseconds since Jan 1, 1970
-        // 3 steps to calculate UNIX Epoch time of JWT expiration
-            // (1) authResult.expiresIn contains expiration in seconds
-            // (2) _E^3 seconds -> ms
-            // (3) add current Unix Epoch time 
-                // above in setSessions
-    
+        _expiresAt = authResult.expiresIn * 1000 + new Date().getTime()
+        
     // val for scope param in authResult ?
     // use to set scopes in session for user (authResult.scope) :
     // use the scopes as requested (this.requestedScopes)
     // if !scopes then set to ("")
-    const scopes = authResult.scope || this.requestedScopes || "";
-    
-    // save access token
-    localStorage.setItem("access_token", authResult.accessToken);   
-    // save id token
-    localStorage.setItem("id_token", authResult.idToken);
-    // save expiration value to expiresAt result
-    localStorage.setItem("expires_at", expiresAt);
-    // set scopes to local storage with JSON.stringify
-    // tokens content can't be tampered with (crypto signature validated on server)
-    localStorage.setItem("scopes", JSON.stringify(scopes))
-    };
+    _scopes = authResult.scope || this.requestedScopes || "";
+    _accessToken = authResult.accessToken
+    _idToken = authResult.idToken
+    }
 
     isAuthenticated() {
-    const expiresAt = JSON.parse(localStorage.getItem("expires_at"));
-    return new Date().getTime() < expiresAt;
+      return new Date().getTime() < _expiresAt;
     }
 
     logout = () => {
-        localStorage.removeItem("access_token");
-        localStorage.removeItem("id_token");
-        localStorage.removeItem("expires_at");
-        localStorage.removeItem("scopes");
-        // auth0 checks session cookie on browser to determine if logged in
-        this.userProfile = null;
-        this.auth0.logout({
-            // client ID passed
-          clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
-            // redirect address
-          returnTo: "http://localhost:3000"
-        });
-      };
-      // gets access token from local storage
-      getAccessToken = () => {
-        const accessToken = localStorage.getItem("access_token");
-        if (!accessToken) {
-          throw new Error("No access token found.");
-        }
-        return accessToken;
-      };
-      // will return users profile if it's already found
-      // initialize in the constructor 
-      getProfile = cb => {
-        if (this.userProfile) return cb(this.userProfile);
-        // endpoint is part of the OAuth standard
-        // common on every identity provider
-        // alternatively, can get users pf from ID token via JWT-decode (npm)
-        this.auth0.client.userInfo(this.getAccessToken(), (err, profile) => {
-          if (profile) this.userProfile = profile;
-          cb(profile, err);
-        });
-      };
-      // accepts an array of scopes
-      // checks local storage for list of scopes
-      // if no scopes, defaults to empty string
-      // uses scopes.every to iterate over every scope
-      userHasScopes(scopes) {
-        const grantedScopes = (
-          JSON.parse(localStorage.getItem("scopes")) || ""
-        ).split(" ")
-        return scopes.every(scopes => grantedScopes.includes(scopes))
+      this.auth0.logout({
+        clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
+        returnTo: "http://localhost:3000"
+      })
+    };
+
+
+    getAccessToken = () => {
+      if (!accessToken) {
+        throw new Error("No access token found.");
       }
-}
+      return _accessToken;
+    };
+
+    // endpoint is part of the OAuth standard
+    // common on every identity provider
+    // alternatively, can get users pf from ID token via JWT-decode (npm)
+    getProfile = cb => {
+      if (this.userProfile) return cb(this.userProfile);
+      this.auth0.client.userInfo(this.getAccessToken(), (err, profile) => {
+        if (profile) this.userProfile = profile;
+        cb(profile, err);
+      });
+    };
+    
+    // accepts an array of scopes
+    // checks local storage for list of scopes
+    // if no scopes, defaults to empty string
+    // uses scopes.every to iterate over every scope
+    userHasScopes(scopes) {
+      const grantedScopes = (_scopes || "").split(" ")
+      return scopes.every(scope => grantedScopes.includes(scope))
+    }
+
+    
+  }
