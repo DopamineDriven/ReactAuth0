@@ -359,8 +359,10 @@
     - delegating permissions for app to interact with 3rd party data
 - use roles for handling your own apps permissions
 
+## Context API
+- React 16.3 -> added new contextAPI; can have as many contexts as desired
 
-## Steps to configure context:
+### Steps to configure context:
 - (1) Declare context
 - (2) Declare provider (provides data/functions)
 - (3) Declare consumer (consumes data/functions)
