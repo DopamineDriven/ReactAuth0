@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from "react-router-dom";
+import { Route } from "react-router-dom";
 import Home from './pages/Home.jsx';
 import Profile from './pages/Profile.jsx';
 import Navbar from './components/Navbar/Navbar.jsx';
@@ -11,6 +11,8 @@ import Callback from './pages/Callback.jsx';
 import Public from './pages/Public.jsx';
 import Private from './pages/Private.jsx';
 import Courses from './pages/Courses.jsx';
+import PrivateRoute from './PrivateRoute.jsx';
+// React 16.3 -> added new contextAPI; can have as many contexts as desired
 
 class App extends Component {
   
@@ -23,7 +25,7 @@ class App extends Component {
     return (
       <React.Fragment>
         <Navbar auth={this.auth} />
-        <Wrapper>
+          <Wrapper>
             <Route 
               exact path={"/" || "/home"}
               render={props => <Home auth={this.auth} {...props} />} 
@@ -36,40 +38,25 @@ class App extends Component {
               exact path="/public" 
               render={props => <Public auth={this.auth} {...props} />} 
             />
-            <Route 
+            <PrivateRoute 
               exact path="/profile" 
-              render={props => 
-                // user must be logged in
-                this.auth.isAuthenticated() ? (
-                  <Profile auth={this.auth} {...props} />
-                ) : (
-                  <Redirect to="/" />
-                )} 
+              component={Profile} 
+              auth={this.auth}
             />
-            <Route 
+            <PrivateRoute 
               exact path="/private" 
-              render={props => 
-                // user must be logged in
-                this.auth.isAuthenticated() ? (
-                  <Private auth={this.auth} {...props} />
-                ) : (
-                  this.auth.login()
-                )} 
+              component={Private} 
+              auth={this.auth}
             />
-            <Route 
+            <PrivateRoute 
               exact path="/courses" 
-              render={props => 
-                // user must be logged in and granted specified scope
-                this.auth.isAuthenticated() &&
-                this.auth.userHasScopes(["read:courses"]) ? (
-                  <Courses auth={this.auth} {...props} />
-                ) : (
-                  this.auth.login()
-                )} 
+              component={Courses}
+              auth={this.auth}
+              scopes={["read:courses"]}
             />
-            </Wrapper>
+          </Wrapper>
         <Footer />
-        </React.Fragment>
+      </React.Fragment>
     );
   }
 };

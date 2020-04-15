@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 
-const PrivateRoute = ({ component: Component, auth, scopes, ...rest }) => {
+function PrivateRoute ({ component: Component, auth, scopes, ...rest }) {
     return (
         <Route 
             { ...rest }
