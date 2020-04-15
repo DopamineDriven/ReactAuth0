@@ -1,6 +1,7 @@
 import auth0 from 'auth0-js';
 require('dotenv').config();
 // https://auth0.github.io/auth0.js/index.html
+const REDIRECT_ON_LOGIN = "redirect_on_login"
 
 export default class Auth {
     constructor(history) {
@@ -26,26 +27,36 @@ export default class Auth {
     // don't have to worry about this keyword binding (no manual data-binding required)
     // when authorize called it redirects browser to Auth0 login page
     login = () => {
-        this.auth0.authorize()
+      localStorage.setItem(
+        "redirect_on_login", 
+        JSON.stringify(this.history.location)
+      )
+      this.auth0.authorize()
     };
 
     handleAuthentication = () => {
         // parseHash built into Auth0js lib
         // parses the hash from the URL
-        // get both an error obj and result
         // auth result should have access and id tokens
         this.auth0.parseHash((error, authResult) => {
+          debugger;
             if (authResult && authResult.accessToken && authResult.idToken) {
                 // pass setSession authResult data
                 console.log("parseHash", authResult)
                 this.setSession(authResult)
-                // programmatically tell react to redirect url to "/"
-                this.history.push("/")
+                // redirects user to location they were at after logging in
+                const redirectLocation = 
+                  localStorage.getItem(REDIRECT_ON_LOGIN) === "undefined"
+                    ? "/" 
+                    : JSON.parse(localStorage.getItem)
+                this.history.push(redirectLocation)
             } else if (error) {
                 this.history.push("/")
                 alert(`Error ${error.error}. Check the console for details`)
                 console.log(error)
             }
+            // clean up local storage one finished
+            localStorage.removeItem(REDIRECT_ON_LOGIN)
         })
     }
     // receives an authResult
