@@ -87,7 +87,7 @@ class Navbar extends React.Component {
                                     onClick={isAuthenticated() ? logout : login }
                                     className="btn-lg">
                                         {isAuthenticated() ? "Logout" : "Login"}
-                                    </button>
+                                </button>
                             </li>
                         </ul>
                 {/* </div> */}
